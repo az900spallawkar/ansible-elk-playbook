@@ -59,7 +59,10 @@ pipeline {
 
         stage('Apply') {
             steps {
-                sh "pwd;cd terraform ; terraform apply -input=false tfplan"
+                withCredentials([sshUserPrivateKey(credentialsId:'key_name', keyFileVariable: 'key_from_jenkins')]){
+                sh "pwd;cd terraform ; terraform apply -input=false tfplan -var "jenkins_ssh=key_from_jenkins" }
+           // steps {
+           //     sh "pwd;cd terraform ; terraform apply -input=false tfplan"
             }
         }
     }
