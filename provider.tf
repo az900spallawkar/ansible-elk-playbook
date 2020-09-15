@@ -77,6 +77,11 @@ resource "aws_instance" "example" {
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
 }
+
+ 
+  provisioner "remote-exec" {
+    inline = ["echo 'Hello World'"]
+    
 connection {
     type        = "ssh"
     user        = "ubuntu"
@@ -85,10 +90,7 @@ connection {
 private_key = file("/Users/saziyamukadam/Downloads/jenkinskey.pem")
     host        = aws_instance.example.public_ip
   
- }
- 
-  provisioner "remote-exec" {
-    inline = ["echo 'Hello World'"]
+       }
     }
   #  connection {
    #   type        = "ssh"
