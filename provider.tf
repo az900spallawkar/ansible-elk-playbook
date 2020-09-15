@@ -64,7 +64,7 @@ resource "aws_security_group" "test_sg" {
 
 resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
-   key_name         = "jenkinskey"
+   key_name         = var.key_name
    #key_name        = var.private_key_path
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
@@ -94,13 +94,15 @@ resource "aws_instance" "example" {
     connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = ${var.jenkins_ssh}
+   # private_key = ${var.jenkins_ssh}
+      private_key = ${var.key_name}
     host        = aws_instance.example.public_dns
   }
  }
    provisioner "local-exec" {
   # command = "sleep 120; ansible-playbook host_key_checking=false -u ubuntu --private-key ${var.private_key_path} -i '${aws_instance.example.public_dns},' site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu -i '${aws_instance.example.public_dns},' --private-key ${tls_private_key.example.private_key_pem} site.yml"
-   command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
+  # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
+     command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key=~/jenkinskey.pem -i '${aws_instance.example.public_dns},' site.yml"
      }
 }
