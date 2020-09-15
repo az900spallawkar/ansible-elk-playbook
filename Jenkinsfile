@@ -10,6 +10,7 @@ pipeline {
      environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+         ANSIBLE_CONFIG        = 'ansible.cfg'
     }
 
    agent  any
@@ -31,11 +32,17 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh 'pwd;cd terraform ; terraform init -input=false'
-                sh 'pwd;cd terraform ; terraform workspace new ${environment}'
-                sh 'pwd;cd terraform ; terraform workspace select ${environment}'
-                sh 'pwd;cd terraform ; terraform plan -input=false -out tfplan'
-                sh 'pwd;cd terraform ; terraform show -no-color tfplan > tfplan.txt'
+                sh 'terraform init -input=false'
+                sh 'terraform ; terraform workspace new ${environment}'
+                sh 'terraform workspace select ${environment}'
+                sh 'terraform plan -input=false -out tfplan'
+                sh 'terraform show -no-color tfplan > tfplan.txt'
+                
+                //sh 'pwd;cd terraform ; terraform init -input=false'
+                //sh 'pwd;cd terraform ; terraform workspace new ${environment}'
+                //sh 'pwd;cd terraform ; terraform workspace select ${environment}'
+                //sh 'pwd;cd terraform ; terraform plan -input=false -out tfplan'
+               // sh 'pwd;cd terraform ; terraform show -no-color tfplan > tfplan.txt'
             }
         }
         stage('Approval') {
@@ -56,7 +63,8 @@ pipeline {
 
         stage('Apply') {
             steps {
-                sh "pwd;cd terraform ; terraform apply -input=false tfplan"
+                sh "terraform apply -input=false tfplan"
+                 //sh "pwd;cd terraform ; terraform apply -input=false tfplan"
             }
         }
     }
