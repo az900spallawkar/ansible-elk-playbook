@@ -10,7 +10,6 @@ pipeline {
      environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-       // SSH_CREDS             = credentials('jenkinskey')
     }
 
    agent  any
@@ -32,13 +31,11 @@ pipeline {
 
         stage('Plan') {
             steps {
-               
-               sh 'pwd;cd terraform ; terraform init -input=false'
+                sh 'pwd;cd terraform ; terraform init -input=false'
                 sh 'pwd;cd terraform ; terraform workspace new ${environment}'
                 sh 'pwd;cd terraform ; terraform workspace select ${environment}'
                 sh 'pwd;cd terraform ; terraform plan -input=false -out tfplan'
                 sh 'pwd;cd terraform ; terraform show -no-color tfplan > tfplan.txt'
-            
             }
         }
         stage('Approval') {
@@ -58,9 +55,6 @@ pipeline {
        }
 
         stage('Apply') {
-         //   steps {
-           //     withCredentials([sshUserPrivateKey(credentialsId:'jenkinskey', keyFileVariable: 'key_from_jenkins')]){
-           //         sh "pwd;cd terraform ; terraform apply -input=false tfplan -var "jenkins_ssh=${key_from_jenkins}" }
             steps {
                 sh "pwd;cd terraform ; terraform apply -input=false tfplan"
             }
