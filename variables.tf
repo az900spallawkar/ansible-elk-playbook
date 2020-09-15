@@ -16,6 +16,10 @@ variable "private_key_path" {
 #  default = "files/jenkinskey.pem"
 #  }
 
+variable "key_name" {
+ default     = "jenkinskey" 
+  }
+
 variable "ssh_user" {
   description = "SSH user name to connect to your instance."
   default     = "ubuntu"
