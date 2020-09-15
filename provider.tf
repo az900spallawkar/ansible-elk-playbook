@@ -95,7 +95,7 @@ resource "aws_instance" "example" {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = "~/jenkinskey.pem"
+      private_key = file(var.key_name)
     host        = aws_instance.example.public_dns
   }
  }
@@ -103,6 +103,6 @@ resource "aws_instance" "example" {
   # command = "sleep 120; ansible-playbook host_key_checking=false -u ubuntu --private-key ${var.private_key_path} -i '${aws_instance.example.public_dns},' site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu -i '${aws_instance.example.public_dns},' --private-key ${tls_private_key.example.private_key_pem} site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
-     command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key=~/jenkinskey.pem -i '${aws_instance.example.public_dns},' site.yml"
+     command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(var.key_name) -i '${aws_instance.example.public_dns},' site.yml"
      }
 }
