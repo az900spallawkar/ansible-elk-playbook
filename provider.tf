@@ -17,9 +17,9 @@ provider "aws" {
 }
 
 
-variable "jenkins_ssh" {
-  description = "SSH key passed in by Jenkins"
-}
+#variable "jenkins_ssh" {
+#  description = "SSH key passed in by Jenkins"
+#}
 
 #locals {
  #  ssh_private_key_content = file(var.ssh_private_key_file)
@@ -64,7 +64,7 @@ resource "aws_security_group" "test_sg" {
 
 resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
-   key_name         = ${var.key_name}
+   key_name         = var.key_name
    #key_name        = var.private_key_path
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
@@ -95,7 +95,7 @@ resource "aws_instance" "example" {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = ${var.key_name}
+      private_key = var.key_name
     host        = aws_instance.example.public_dns
   }
  }
