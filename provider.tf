@@ -95,7 +95,7 @@ resource "aws_instance" "example" {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = file(var.key_name)
+      private_key = var.key_name
     host        = aws_instance.example.public_dns
   }
  }
