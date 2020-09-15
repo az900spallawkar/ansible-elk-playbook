@@ -64,7 +64,7 @@ resource "aws_security_group" "test_sg" {
 
 resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
-   key_name         = var.key_name
+   key_name         = ${var.key_name}
    #key_name        = var.private_key_path
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
