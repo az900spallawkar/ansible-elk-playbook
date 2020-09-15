@@ -76,7 +76,7 @@ resource "aws_instance" "example" {
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
-}
+
 
  
   provisioner "remote-exec" {
@@ -116,4 +116,4 @@ private_key = file("/Users/saziyamukadam/Downloads/jenkinskey.pem")
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
      command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(/Users/saziyamukadam/Downloads/jenkinskey.pem) -i '${aws_instance.example.public_dns},' site.yml"
      }
-
+  }
