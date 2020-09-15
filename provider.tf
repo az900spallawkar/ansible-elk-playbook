@@ -62,9 +62,14 @@ resource "aws_security_group" "test_sg" {
   }
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name   = "jenkinskey"
+  public_key = "~/.ssh/authorized_keys"
+  }
+
 resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
-   key_name         = var.key_name
+   key_name      = "${aws_key_pair.deployer.key_name}"
    #key_name        = var.private_key_path
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
@@ -73,7 +78,7 @@ resource "aws_instance" "example" {
  
   provisioner "remote-exec" {
     inline = ["echo 'Hello World'"]
-   
+    }
   #  connection {
    #   type        = "ssh"
    #   user        = var.ssh_user
@@ -95,14 +100,14 @@ resource "aws_instance" "example" {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = var.key_name
+      private_key = var.private_key
     host        = aws_instance.example.public_dns
-  }
+  
  }
    provisioner "local-exec" {
   # command = "sleep 120; ansible-playbook host_key_checking=false -u ubuntu --private-key ${var.private_key_path} -i '${aws_instance.example.public_dns},' site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu -i '${aws_instance.example.public_dns},' --private-key ${tls_private_key.example.private_key_pem} site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
-     command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(var.key_name) -i '${aws_instance.example.public_dns},' site.yml"
+     command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(var.private_key) -i '${aws_instance.example.public_dns},' site.yml"
      }
 }
