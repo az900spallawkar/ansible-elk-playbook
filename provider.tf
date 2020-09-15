@@ -62,20 +62,30 @@ resource "aws_security_group" "test_sg" {
   }
 }
 
-resource "aws_key_pair" "deployer" {
-  key_name   = "jenkinskey"
+#resource "aws_key_pair" "deployer" {
+#  key_name   = "jenkinskey"
   #public_key = "~/.ssh/authorized_keys"
-  public_key = "file(/home/ubuntu/.ssh/authorized_keys)"
-  }
+#  public_key = "file(/home/ubuntu/.ssh/authorized_keys)"
+#  }
 
 resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
-   key_name      = aws_key_pair.deployer.key_name
+  # key_name      = aws_key_pair.deployer.key_name
    #key_name        = var.private_key_path
+  key_name        = "jenkinskey'
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
+}
+connection {
+    type        = "ssh"
+    user        = "ubuntu"
+   # private_key = ${var.jenkins_ssh}
+    #  private_key = var.private_key_path
+private_key = file("/Users/saziyamukadam/Downloads/jenkinskey.pem")
+    host        = aws_instance.example.public_ip
   
+ }
  
   provisioner "remote-exec" {
     inline = ["echo 'Hello World'"]
@@ -97,18 +107,11 @@ resource "aws_instance" "example" {
    # host        = self.public_ip
    # host        = aws_instance.example.public_dns
   #}
-    connection {
-    type        = "ssh"
-    user        = "ubuntu"
-   # private_key = ${var.jenkins_ssh}
-      private_key = var.private_key_path
-    host        = aws_instance.example.private_ip
-  
- }
+    
    provisioner "local-exec" {
   # command = "sleep 120; ansible-playbook host_key_checking=false -u ubuntu --private-key ${var.private_key_path} -i '${aws_instance.example.public_dns},' site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu -i '${aws_instance.example.public_dns},' --private-key ${tls_private_key.example.private_key_pem} site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
-     command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(var.private_key_path) -i '${aws_instance.example.public_dns},' site.yml"
+     command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(/Users/saziyamukadam/Downloads/jenkinskey.pem) -i '${aws_instance.example.public_dns},' site.yml"
      }
-}
+
