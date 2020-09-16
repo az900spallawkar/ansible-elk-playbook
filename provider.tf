@@ -42,10 +42,10 @@ provider "aws" {
 #  public_key = file(var.public_key_path)
   
  # }
-resource "aws_key_pair" "terraform" {
-  key_name = "terraform"
-  public_key = "terraform.pub"
-}
+#resource "aws_key_pair" "terraform" {
+#  key_name = ""
+#  public_key = "terraform.pub"
+#}
 
 resource "aws_security_group" "test_sg" {
   name = "test_sg"
@@ -76,7 +76,7 @@ resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
   # key_name      = aws_key_pair.deployer.key_name
    #key_name        = var.private_key_path
-  key_name        = "terraform"
+  key_name        = "/var/lib/jenkins/.ssh/id_rsa"
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
