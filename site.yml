@@ -2,8 +2,9 @@
 #
 # Playbook to install the ELK stack + Beats
 #
-gather_facts: no
+
 - hosts: all
+  gather_facts: no
   remote_user: ubuntu
   become: yes
   become_user: root
