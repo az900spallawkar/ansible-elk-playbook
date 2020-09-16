@@ -72,7 +72,7 @@ resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
   # key_name      = aws_key_pair.deployer.key_name
    #key_name        = var.private_key_path
-  key_name        = "jenkinskey"
+  key_name        = "id_rsa"
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
@@ -87,7 +87,7 @@ connection {
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
     #  private_key = var.private_key_path
-private_key = file("~/.ssh/id_rsa")
+private_key = file(var.private_key_path)
     host        = aws_instance.example.public_ip
  # host            = self.ipv4_address
        }
