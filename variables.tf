@@ -17,7 +17,7 @@ variable "private_key_path" {
 #  }
 
 variable "key_name" {
- default     = "id_rsa" 
+ default     = "terraform" 
   }
 
 variable "ssh_user" {
