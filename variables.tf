@@ -1,6 +1,6 @@
 variable "public_key_path" {
   description = "Path to the public SSH key you want to bake into the instance."
-  default     = "home/ubuntu/.ssh/authorized_keys"
+  default     = "~/.ssh/id_rsa.pub"
 }
 
 variable "private_key_path" {
@@ -17,7 +17,7 @@ variable "private_key_path" {
 #  }
 
 variable "key_name" {
- default     = "jenkinskey" 
+ default     = "id_rsa" 
   }
 
 variable "ssh_user" {
