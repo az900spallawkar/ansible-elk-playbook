@@ -42,6 +42,10 @@ provider "aws" {
 #  public_key = file(var.public_key_path)
   
  # }
+resource "aws_key_pair" "terraform" {
+  key_name = "terraform"
+  public_key = "terraform.pub"
+}
 
 resource "aws_security_group" "test_sg" {
   name = "test_sg"
