@@ -76,7 +76,7 @@ resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
   # key_name      = aws_key_pair.deployer.key_name
    #key_name        = var.private_key_path
-  key_name        = "/var/lib/jenkins/id_rsa"
+  key_name        = "jenkinskey"
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
@@ -90,7 +90,7 @@ connection {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = "/var/lib/jenkins/id_rsa"
+      private_key = "/var/lib/jenkins/jenkinskey"
 #private_key = file(var.private_key_path)
     host        = aws_instance.example.public_ip
  # host            = self.ipv4_address
@@ -121,7 +121,7 @@ connection {
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
    #command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(/Users/saziyamukadam/Downloads/jenkinskey.pem) -i '${aws_instance.example.public_dns},' site.yml"
     #command ="ansible-playbook -u ubuntu --private-key ${var.private_key_path} site.yml -i ${aws_instance.example.public_dns},"
-     command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/id_rsa site.yml -i ${aws_instance.example.public_dns},"
+     command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkinskey site.yml -i ${aws_instance.example.public_dns},"
      
      }
   }
