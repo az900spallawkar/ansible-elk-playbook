@@ -87,7 +87,7 @@ connection {
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
     #  private_key = var.private_key_path
-private_key = file('~/.ssh/id_rsa')
+private_key = file("~/.ssh/id_rsa")
    # host        = aws_instance.example.public_ip
   host            = self.ipv4_address
        }
