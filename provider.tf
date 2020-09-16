@@ -90,7 +90,7 @@ connection {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-    #  private_key = var.private_key_path
+      private_key = "/var/lib/jenkins/.ssh/id_rsa"
 private_key = file(var.private_key_path)
     host        = aws_instance.example.public_ip
  # host            = self.ipv4_address
@@ -120,6 +120,8 @@ private_key = file(var.private_key_path)
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu -i '${aws_instance.example.public_dns},' --private-key ${tls_private_key.example.private_key_pem} site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
    #command = "ansible-playbook --ssh-common-args= '-o StrictHostKeyChecking=no' -u ubuntu --prviate-key $(/Users/saziyamukadam/Downloads/jenkinskey.pem) -i '${aws_instance.example.public_dns},' site.yml"
-    command ="ansible-playbook -u ubuntu --private-key ${var.private_key_path} site.yml -i ${aws_instance.example.public_dns},"
+    #command ="ansible-playbook -u ubuntu --private-key ${var.private_key_path} site.yml -i ${aws_instance.example.public_dns},"
+     command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/.ssh/id_rsa site.yml -i ${aws_instance.example.public_dns},"
+     
      }
   }
