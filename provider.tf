@@ -111,10 +111,7 @@ private_key = file(var.private_key_path)
   #}
     
    provisioner "local-exec" {
-     environment{
-       PUBLIC_IP = self.ipv4_address
-       PRIVATE_IP = self.ipv4_address_private
-       }
+     
   # command = "sleep 120; ansible-playbook host_key_checking=false -u ubuntu --private-key ${var.private_key_path} -i '${aws_instance.example.public_dns},' site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu -i '${aws_instance.example.public_dns},' --private-key ${tls_private_key.example.private_key_pem} site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
