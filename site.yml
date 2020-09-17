@@ -12,9 +12,9 @@
     - shell: apt-get upgrade; apt-get update
     - name: install nginx
       apt: 
-      name: nginx
-      state: latest
-    -name: start nginx
+       name: nginx
+       state: latest
+    - name: start nginx
       service:
           name: nginx
           state: started
