@@ -5,7 +5,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "terraform-bucket-saziya"
+    bucket = "tfstate-bucket-saziya"
     key    = "terraform.tfstate"
     region = "eu-west-2"
   }
