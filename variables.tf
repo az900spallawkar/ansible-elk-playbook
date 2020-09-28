@@ -1,6 +1,6 @@
 variable "public_key_path" {
   description = "Path to the public SSH key you want to bake into the instance."
-  default     = "~/terraform.pub"
+  default     = ""
 }
 
 variable "private_key_path" {
