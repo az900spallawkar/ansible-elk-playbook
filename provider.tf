@@ -92,8 +92,9 @@ connection {
    # private_key = ${var.jenkins_ssh}
    #   private_key = "/var/lib/jenkins/jenkinskey"
 #private_key = var.private_key_path
-  private_key = "${file(var.private_key_path)}"
+  private_key = file(var.private_key_path)
     host        = aws_instance.example.public_ip
+  
  # host            = self.ipv4_address
        }
     }
@@ -124,6 +125,14 @@ connection {
     command ="ansible-playbook -u ubuntu --private-key ${var.private_key_path} site.yml -i ${aws_instance.example.public_dns},"
      #command ="ansible-playbook -u ubuntu site.yml -i ${aws_instance.example.public_dns},"
      #command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/jenkinskey site.yml -i ${aws_instance.example.public_dns},"
+     connection {
+    type        = "ssh"
+    user        = "ubuntu"
+   # private_key = ${var.jenkins_ssh}
+   #   private_key = "/var/lib/jenkins/jenkinskey"
+#private_key = var.private_key_path
+  private_key = file(var.private_key_path)
+    host        = aws_instance.example.public_ip
      
      }
   }
