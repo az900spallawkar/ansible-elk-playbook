@@ -88,7 +88,7 @@ resource "aws_instance" "example" {
     
 connection {
     type        = "ssh"
-    user        = "ubuntu"
+    user        = "ec2-user"
    # private_key = ${var.jenkins_ssh}
      private_key = "/var/lib/jenkins/.ssh/jenkinskey"
 #private_key = var.private_key_file
@@ -129,7 +129,7 @@ connection {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = "/var/lib/jenkins/jenkinskey.pem"
+      private_key = "/var/lib/jenkins/.ssh/jenkinskey"
 #private_key = var.private_key_path
  # private_key = file(var.private_key_file)
     host        = aws_instance.example.public_ip
