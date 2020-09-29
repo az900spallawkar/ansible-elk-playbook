@@ -1,6 +1,6 @@
 ---
 #
-# Playbook to install the ELK stack + Beats
+# Playbook to install the nginx 
 #
 
 - hosts: all
