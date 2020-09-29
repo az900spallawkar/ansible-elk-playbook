@@ -81,7 +81,11 @@ resource "aws_instance" "example" {
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
 
-connection {
+
+  provisioner "remote-exec" {
+    inline = ["echo 'Hello World'"]
+    
+    connection {
     type        = "ssh"
     user        = "ec2-user"
    # private_key = ${var.jenkins_ssh}
@@ -93,9 +97,6 @@ connection {
  # host            = self.ipv4_address
        }
  
-  provisioner "remote-exec" {
-    inline = ["echo 'Hello World'"]
-    
 
     }
   #  connection {
@@ -124,7 +125,7 @@ connection {
   # command = "ansible-playbook -u ubuntu --private-key $(var.private_key_path) -i '${aws_instance.example.public_dns},' site.yml"
    # command ="ansible-playbook -u ubuntu --private-key ${var.private_key_file} site.yml -i ${aws_instance.example.public_dns},"
      #command ="ansible-playbook -u ubuntu site.yml -i ${aws_instance.example.public_dns},"
-     command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/jenkinskey.pem site.yml -i ${aws_instance.example.public_dns},"
+     command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/.ssh/jenkinskey site.yml -i ${aws_instance.example.public_dns},"
      connection {
     type        = "ssh"
     user        = "ubuntu"
