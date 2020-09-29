@@ -59,7 +59,7 @@ pipeline {
 
         stage('Apply') {
             steps {
-             //   withCredentials([sshUserPrivateKey(credentialsId: 'private_key', keyFileVariable: 'private_key', passphraseVariable: '', usernameVariable: '')]) {
+             //   withCredentials([sshUserPrivateKey(credentialsId: 'private_key_file', keyFileVariable: 'private_key', passphraseVariable: '', usernameVariable: '')]) {
     // some block
 
                 
