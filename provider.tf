@@ -89,9 +89,9 @@ resource "aws_instance" "example" {
     type        = "ssh"
     user        = "ec2-user"
    # private_key = ${var.jenkins_ssh}
-     private_key = "/var/lib/jenkins/.ssh/jenkinskey"
-#private_key = var.private_key_file
- # private_key = file(var.private_key_file)
+   # private_key = "/var/lib/jenkins/.ssh/jenkinskey"
+    private_key = var.private_key_file
+  # private_key = file(var.private_key_file)
     host        = aws_instance.example.public_ip
   
  # host            = self.ipv4_address
@@ -130,8 +130,8 @@ resource "aws_instance" "example" {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = "/var/lib/jenkins/.ssh/jenkinskey"
-#private_key = var.private_key_path
+    #  private_key = "/var/lib/jenkins/.ssh/jenkinskey"
+private_key = var.private_key_file
  # private_key = file(var.private_key_file)
     host        = aws_instance.example.public_ip
      
