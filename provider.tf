@@ -81,11 +81,6 @@ resource "aws_instance" "example" {
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
 
-
- 
-  provisioner "remote-exec" {
-    inline = ["echo 'Hello World'"]
-    
 connection {
     type        = "ssh"
     user        = "ec2-user"
@@ -97,6 +92,11 @@ connection {
   
  # host            = self.ipv4_address
        }
+ 
+  provisioner "remote-exec" {
+    inline = ["echo 'Hello World'"]
+    
+
     }
   #  connection {
    #   type        = "ssh"
