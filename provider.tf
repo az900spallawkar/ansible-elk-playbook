@@ -87,7 +87,7 @@ resource "aws_instance" "example" {
     
     connection {
     type        = "ssh"
-    user        = "ec2-user"
+    user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
    # private_key = "/var/lib/jenkins/.ssh/jenkinskey"
     private_key = var.private_key_file
