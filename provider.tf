@@ -90,7 +90,7 @@ connection {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-     private_key = "~/.ssh/jenkinskey"
+     private_key = "/var/lib/jenkins/.ssh/jenkinskey"
 #private_key = var.private_key_file
  # private_key = file(var.private_key_file)
     host        = aws_instance.example.public_ip
