@@ -89,8 +89,8 @@ resource "aws_instance" "example" {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-    private_key = "/var/lib/jenkins/jenkinskey.pem"
-    #private_key = var.private_key_file
+    #private_key = "/var/lib/jenkins/jenkinskey.pem"
+    private_key = var.private_key_file
   # private_key = file(var.private_key_file)
     host        = aws_instance.example.public_ip
   
@@ -123,15 +123,15 @@ resource "aws_instance" "example" {
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu -i '${aws_instance.example.public_dns},' --private-key ${tls_private_key.example.private_key_pem} site.yml"
   # command = "ansible-playbook ANSIBLE_HOST_KEY_CHECKING=False -u ubuntu --prviate-key ${var.jenkins_ssh} -i '${aws_instance.example.public_dns},' site.yml"
   # command = "ansible-playbook -u ubuntu --private-key $(var.private_key_path) -i '${aws_instance.example.public_dns},' site.yml"
-   # command ="ansible-playbook -u ubuntu --private-key ${var.private_key_file} site.yml -i ${aws_instance.example.public_dns},"
+    command ="ansible-playbook -u ubuntu --private-key ${var.private_key_file} -i ${aws_instance.example.public_dns}, site.yml"
      #command ="ansible-playbook -u ubuntu site.yml -i ${aws_instance.example.public_dns},"
-     command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/jenkinskey.pem site.yml -i ${aws_instance.example.public_dns},"
+    # command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/jenkinskey.pem -i ${aws_instance.example.public_dns}, site.yml"
      connection {
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
-      private_key = "/var/lib/jenkins/jenkinskey.pem"
-#private_key = var.private_key_file
+      #private_key = "/var/lib/jenkins/jenkinskey.pem"
+    private_key = var.private_key_file
  # private_key = file(var.private_key_file)
     host        = aws_instance.example.public_ip
      
