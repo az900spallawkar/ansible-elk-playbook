@@ -133,7 +133,7 @@ resource "aws_instance" "example" {
      # private_key = file("/var/lib/jenkins/jenkinskey.pem")
     #private_key = var.private_key_file
   private_key = file("${var.private_key_file}")
-    host        = aws_instance.example.public_ip
+    host = aws_instance.example.public_ip
      
      }
   }
