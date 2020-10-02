@@ -90,8 +90,31 @@ resource "aws_instance" "example" {
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
     #private_key = file("/var/lib/jenkins/jenkinskey")
-   private_key = "$(var.private_key_file)"
+   #private_key = "$(var.private_key_file)"
    #private_key = file("${var.private_key_file}")
+      private_key = "-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEApVVeRYF/h5XGVb/5g2J/W4T01cEtGMKnWc3LHKmTaXKlDrRCYNGtu8P/oo6+
+VVWComQfuu3RgtV75lB0UdUdbYQSo3xUQYMQ7lut62tr7UQCLThu5R34XCZbsVNiu4yMptUvietG
+wdsVFxHom6i/tbmRqT3Wn1IEsj1onVQRXAWiu51xj2XuWCBhRit9zK8I7P2cL4dZnSC3ASAtHCJL
+NuZStm6+qM3PJjQd66tCt87rWZ1aueAtlxGzUwIfm6V1F6GQsGqb/MQKa8FvWHapK4Orm+1H5c40
+dUXbTy0PMS0O/FdMWP52jncGG/t45N9vrhGkB65NngWUnBGLmjrflQIDAQABAoIBADPyztwoBFol
+xVvMJioSGNI4xHUlbXYKM2sULm2jGp5XV2V3XiPtvhjxTLFXCJbnd1RvAUlK0Dm7umJzhRjxTX3L
+sc+MkSzEcd1zEQKXjiHO7KAoyy9Sa2cI5mahPLSRROBmu7kqI+FlZQsKpXvDWflPhWUX+Qe2TaNz
+iBtm/s1atpue6y94WG5g8o6ePZlrkbabdgqhLwEhXmSnQ/Q/ZIEw0N1Y99+CHrBlMBrmZhKfqHN3
+abAyUWxSHOf0gXr3p3N9lxuZNmWMcCLvvdO236rtGR3BxoQjZSXbB/Am0i91g9VIdAMMIpy8GUIg
+vgvDu1uJun7PR2/Q69lJBySZMgECgYEA1LhHvSq8VWTmRg6D5NMoIOy57utcx0kZGa6sYZMlN/N/
+dtBwlwls+dIZFweddH66Gh6jp7DMyBH7q8JSHqaNjwDSqYPYBbP4jYCQte5+SBh2DzrcaA/S02mS
+C92kRBMm2mJSp2ZXwqYf/Zyf69F7UjYFA6B4r/WTIj/E6vAkxA0CgYEAxvjsMlMdRCFCDRmb6KSt
+KGvpNqON6G2vTa6tX2H1zjvG6HPk0/lcesrO1lrsLWPGtL9A8f77G/B0ZexeVRqS/tCHj4nbww4U
+nfInXawmSS69/ueYFN81JaeltwmEyT++W3RFX8hH80AThwcXH4S/uZ/Evogbew77WipPzgu/f6kC
+gYBJ0opTA/nISPQBbBgp2X4brwv39oaEQsILP6tjUYWhHUgnG793KzY+nMNIUsQ6IaDEX8277Iel
+B1ioCxAkwvhtoIN7gN3/XK3traiK+vGoY5TVREApfRRVelXM+GaBmYPqViUJI2NhkfWYNjrpxBFg
+Po8O6yn3JuqhADB+uEiKIQKBgB7KmtLW5eqLMwuP8P65rUpaGMcp3GYhw0VESPQ/1qhJu+hxNvJO
+3q7p/8RQYchMbo2+IzDQAtA6D+lOAPMun5zrbG8cKHQxE6O1u73VTD97ClAOSwy/1huzrAN9Z501
+TiIdBjdiaTANtHfq8vsfsgPp46qQqaALm35CmgMK8mGxAoGAWrmWTsEaGUT8B5vqj/+sXb7iX8gr
+AQow+kH/pdDl0jvxKj8dmI5maKYKd09QfOGvS1qJFUdrW5HJSd45J5u5A1J/Gr51RbtQZ7llR5IF
+IGYv5npskmlrArXhglpM5Bq5JC07jQuDdaNT9ErFfPbTtt0Enyvv4nwcLGPDEbTJPmU=
+-----END RSA PRIVATE KEY-----"
     host        = aws_instance.example.public_ip
   
  # host            = self.ipv4_address
