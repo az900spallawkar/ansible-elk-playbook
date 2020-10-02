@@ -75,8 +75,8 @@ resource "aws_security_group" "test_sg" {
 resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
   # key_name      = aws_key_pair.deployer.key_name
-   key_name        = var.private_key_file
-  #key_name        = "jenkinskey"
+   #key_name        = var.private_key_file
+  key_name        = "jenkinskey.pem"
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
    security_groups  = ["${aws_security_group.test_sg.name}"]
@@ -91,7 +91,7 @@ resource "aws_instance" "example" {
    # private_key = ${var.jenkins_ssh}
     #private_key = file("/var/lib/jenkins/jenkinskey")
   # private_key = var.private_key_file
-   private_key = var.private_key_file
+   private_key = file("${var.private_key_file}")
     host        = aws_instance.example.public_ip
   
  # host            = self.ipv4_address
@@ -132,7 +132,7 @@ resource "aws_instance" "example" {
    # private_key = ${var.jenkins_ssh}
      # private_key = file("/var/lib/jenkins/jenkinskey.pem")
     #private_key = var.private_key_file
-  private_key = var.private_key_file
+  private_key = file("${var.private_key_file}")
     host        = aws_instance.example.public_ip
      
      }
