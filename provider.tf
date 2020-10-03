@@ -88,14 +88,15 @@ resource "aws_instance" "example" {
     inline = ["echo 'Hello World'"]
     
     connection {
+    host        = aws_instance.example.public_ip
     type        = "ssh"
     user        = "ubuntu"
    # private_key = ${var.jenkins_ssh}
     #private_key = ${file(/var/lib/jenkins/jenkinskey.pem)}
    #private_key = var.private_key_file
    #private_key = file("${var.private_key_file}")
-    private_key = "/var/lib/jenkins/.ssh/jenkinskey"
-    host        = aws_instance.example.public_ip
+    private_key = "${file("/var/lib/jenkins/.ssh/jenkinskey")}"
+   
   # private_key = var.private_key_path
  # host            = self.ipv4_address
        }
@@ -130,15 +131,18 @@ resource "aws_instance" "example" {
      command ="ansible-playbook -u ubuntu site.yml -i ${aws_instance.example.public_dns},"
     # command ="ansible-playbook -u ubuntu --key-file /var/lib/jenkins/jenkinskey.pem -i ${aws_instance.example.public_dns}, site.yml"
      connection {
+    host = aws_instance.example.public_ip
     type        = "ssh"
     user        = "ubuntu"
-      private_key = "/var/lib/jenkins/.ssh/jenkinskey"
+    private_key = "${file("/var/lib/jenkins/.ssh/jenkinskey")}"
+   
+      #private_key = "/var/lib/jenkins/.ssh/jenkinskey"
    # private_key = ${var.jenkins_ssh}
      # private_key = file("/var/lib/jenkins/jenkinskey.pem")
    # private_key = var.private_key_file
      # private_key = var.private_key_path
   #private_key = file("${var.private_key_file}")
-    host = aws_instance.example.public_ip
+    
      
      }
   }
