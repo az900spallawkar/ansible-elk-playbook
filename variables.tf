@@ -1,6 +1,6 @@
 variable "public_key_path" {
   description = "Path to the public SSH key you want to bake into the instance."
-  default     = ""
+  default     = "~/.ssh/id_rsa.pub"
 }
 
 variable "private_key_file" {
