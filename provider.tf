@@ -37,9 +37,9 @@ provider "aws" {
 #  public_key = tls_private_key.example.public_key_openssh
 #}
 
-#resource "aws_key_pair" "ubuntu" {
-#  key_name   = "ubuntu"
-#  public_key = file(var.public_key_path)
+resource "aws_key_pair" "ubuntu" {
+  key_name   = "jenkinskey"
+  public_key = file(var.public_key_path)
   
  # }
 #resource "aws_key_pair" "terraform" {
