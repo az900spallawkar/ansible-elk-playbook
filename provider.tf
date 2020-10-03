@@ -77,7 +77,7 @@ resource "aws_instance" "example" {
   # key_name         = aws_key_pair.terraform-ansible.key_name
   # key_name      = aws_key_pair.deployer.key_name
    #key_name        = var.private_key_file
-  #key_name        =  "${aws_key_pair.ubuntu.key_name}"
+  key_name        =  "jenkinskey"
  
    ami              = "ami-0287acb18b6d8efff"
    instance_type    = "t2.micro"
@@ -96,7 +96,7 @@ resource "aws_instance" "example" {
    #private_key = file("${var.private_key_file}")
    # private_key = "/var/lib/jenkins/jenkinskey.pem"
     host        = aws_instance.example.public_ip
-   private_key = file("${/var/lib/jenkins}/jenkinskey.pem")
+   private_key = /var/lib/jenkins/jenkinskey.pem
  # host            = self.ipv4_address
        }
  
@@ -136,7 +136,7 @@ resource "aws_instance" "example" {
    # private_key = ${var.jenkins_ssh}
      # private_key = file("/var/lib/jenkins/jenkinskey.pem")
    # private_key = var.private_key_file
-      private_key = file("${/var/lib/jenkins}/jenkinskey.pem")
+      private_key = /var/lib/jenkins}/jenkinskey.pem
   #private_key = file("${var.private_key_file}")
     host = aws_instance.example.public_ip
      
